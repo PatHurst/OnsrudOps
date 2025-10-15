@@ -1,0 +1,42 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net9.0-windows</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <OutputType>WinExe</OutputType>
+	<PublishSingleFile>true</PublishSingleFile>
+    <UseWPF>True</UseWPF>
+    <Version>1.0.0</Version>
+    <Authors>Patrick Hurst</Authors>
+    <Company>InnovaTech</Company>
+    <ApplicationIcon>icon.ico</ApplicationIcon>
+    <Platforms>AnyCPU;win-x64</Platforms>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <None Remove="UI\resources\icon.ico" />
+    <None Remove="UI\resources\SyntaxHighlighting_Theme.xml" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Content Include="icon.ico" />
+    <Resource Include="UI\resources\icon.ico">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
+    <Content Include="UI\resources\SyntaxHighlighting_Theme.xml">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="AvalonEdit" Version="6.3.1.120" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\OnsrudOps.ReCut\OnsrudOps.ReCut.csproj" />
+    <ProjectReference Include="..\OnsrudOps.Serial\OnsrudOps.Serial.csproj" />
+  </ItemGroup>
+
+
+</Project>

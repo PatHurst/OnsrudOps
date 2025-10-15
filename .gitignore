@@ -1,0 +1,10 @@
+Properties/
+obj/
+bin/
+release/
+debug/
+.git/
+.vs/
+publish/
+*.anc
+*.txt
