@@ -15,7 +15,7 @@ public partial class SettingsWindow : Window
 {
     private bool _settingsModified;
 
-    readonly int[] baudRates =
+    private readonly int[] baudRates =
     [
         110,
         300,
@@ -144,7 +144,9 @@ public partial class SettingsWindow : Window
                 if (baudRates[i] == baud)
                     return i;
             }
-            throw new ArgumentException($"{baud} is not a valid Baud Rate!", nameof(baud));
+            // if we made it here the baud rate read from registry is not valid. 
+            // use the first one in the array.
+            return baudRates.First();
         }
 
     }

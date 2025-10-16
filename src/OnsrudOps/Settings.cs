@@ -14,7 +14,7 @@ namespace OnsrudOps.src
     static class Settings
     {
         // The key path to where the settings are stored
-        private static string keyPath = "HKEY_CURRENT_USER\\Software\\Hurst Software\\Slab Surface";
+        private static readonly string keyPath = "HKEY_CURRENT_USER\\Software\\Hurst Software\\Slab Surface";
 
         private static string _pathToEdytoryNC = GetValueFromRegistry<string>(nameof(PathToEdytorNC));
 

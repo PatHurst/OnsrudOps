@@ -172,17 +172,17 @@ public partial class MainWindow : Window
         {
             if (CodeFile_LstBx.SelectedIndex != -1)
             {
-                bool savedSuccessfully = false;
                 if (ViewModel.CodeFiles[CodeFile_LstBx.SelectedIndex].Modified)
                 {
-                    if (MessageBox.Show($"Do you want to save your changes to {ViewModel.CodeFiles[CodeFile_LstBx.SelectedIndex].FileName}?", 
-                        "Save Changes", MessageBoxButton.YesNo) == MessageBoxResult.Yes)
+                    MessageBoxResult messageBoxResult = MessageBox.Show($"Do you want to save your changes to {ViewModel.CodeFiles[CodeFile_LstBx.SelectedIndex].FileName}?",
+                        "Save Changes", MessageBoxButton.YesNo);
+                    if (messageBoxResult == MessageBoxResult.Yes)
                     {
-                        savedSuccessfully = await ViewModel.CodeFiles[CodeFile_LstBx.SelectedIndex].SaveAsync();
+                        bool savedSuccessfully = await ViewModel.CodeFiles[CodeFile_LstBx.SelectedIndex].SaveAsync();
+                        if (!savedSuccessfully)
+                            return;
                     }
                 }
-                if (!savedSuccessfully)
-                    return;
                 ViewModel.CodeFiles.RemoveAt(CodeFile_LstBx.SelectedIndex);
             }
             if (ViewModel.CodeFiles.Count == 0)
