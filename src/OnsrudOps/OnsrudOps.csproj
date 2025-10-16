@@ -36,6 +36,7 @@
   <ItemGroup>
     <ProjectReference Include="..\OnsrudOps.ReCut\OnsrudOps.ReCut.csproj" />
     <ProjectReference Include="..\OnsrudOps.Serial\OnsrudOps.Serial.csproj" />
+    <ProjectReference Include="..\OnsrudOps.SlabSurface\OnsrudOps.SlabSurface.csproj" />
   </ItemGroup>
 
 

@@ -9,7 +9,7 @@ using System.Windows;
 using System.Windows.Documents;
 using System.Windows.Media;
 using System.Xml;
-using OnsrudOps.ReCut;
+using OnsrudOps.SlabSurface;
 
 namespace OnsrudOps.UI;
 
@@ -61,7 +61,7 @@ public partial class MainWindow : Window
         {
             Parameters parameters = new();
             parameters.Build(ProgramName_TxtBx.Text, PartWidth_TxtBx.Text, PartLength_TxtBx.Text, StartingThickness_TxtBx.Text, FinishedThickness_TxtBx.Text, VerticalStep_TxtBx.Text);
-            GCodeFile file = new(new OnsrudOps.ReCut.CreateGCodeFileCommand(parameters).BuildFile());
+            GCodeFile file = new(new OnsrudOps.SlabSurface.CreateGCodeFileCommand(parameters).BuildFile());
             ViewModel.CodeFiles.Add(file);
             TabControl.SelectedIndex = 0;
             CodeFile_LstBx.SelectedIndex = ViewModel.CodeFiles.Count - 1;
