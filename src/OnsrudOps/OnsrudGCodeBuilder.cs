@@ -3,36 +3,36 @@ using System.IO;
 using System.Text;
 using System.Windows;
 
-namespace OnsrudOps.src
+namespace OnsrudOps.src;
+
+class OnsrudGCodeBuilder : IGCodeBuilder
 {
-    class OnsrudGCodeBuilder : IGCodeBuilder
-    {
-    //        /// <summary>
-    //        /// The actual file string
-    //        /// </summary>
-    //        private StringBuilder gCodeString = new();
+//        /// <summary>
+//        /// The actual file string
+//        /// </summary>
+//        private StringBuilder gCodeString = new();
 
-    //        /// <summary>
-    //        /// The machine on which the GCode will be running
-    //        /// </summary>
-    //        private CNCMachine CNCMachine;
+//        /// <summary>
+//        /// The machine on which the GCode will be running
+//        /// </summary>
+//        private CNCMachine CNCMachine;
 
-    //        /// <summary>
-    //        /// The parameters to build the g code program
-    //        /// </summary>
-    //        private PartParameters parameters;
+//        /// <summary>
+//        /// The parameters to build the g code program
+//        /// </summary>
+//        private PartParameters parameters;
 
-    //        /// <summary>
-    //        /// Class constructor
-    //        /// </summary>
-    //        /// <param name="parameters">A valid parameter object</param>
-    //        public OnsrudGCodeBuilder(CNCMachine machine, PartParameters parameters)
-    //        {
-    //            this.CNCMachine = machine;
-    //            this.parameters = parameters;
-    //        }
+//        /// <summary>
+//        /// Class constructor
+//        /// </summary>
+//        /// <param name="parameters">A valid parameter object</param>
+//        public OnsrudGCodeBuilder(CNCMachine machine, PartParameters parameters)
+//        {
+//            this.CNCMachine = machine;
+//            this.parameters = parameters;
+//        }
 
-    public GCodeFile Build(Part p) { return new GCodeFile(); }
+public GCodeFile Build(Part p) { return new GCodeFile(); }
 //        {
 //            Append(CNCMachine.Header(parameters));
 //            Append(CNCMachine.ToolChange(12));
@@ -123,5 +123,4 @@ namespace OnsrudOps.src
 //        {
 //            gCodeString.AppendLine(line);
 //        }
-    }
 }

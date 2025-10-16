@@ -4,13 +4,12 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OnsrudOps.src
+namespace OnsrudOps.src;
+
+internal enum MovementType
 {
-    internal enum MovementType
-    {
-        Rapid,
-        Feed,
-        ClockwiseArc,
-        CounterClockwiseArc
-    }
+    Rapid,
+    Feed,
+    ClockwiseArc,
+    CounterClockwiseArc
 }
