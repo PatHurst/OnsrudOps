@@ -3,7 +3,7 @@ using System.IO;
 using System.Text;
 using System.Windows;
 
-namespace OnsrudOps.ReCut;
+namespace OnsrudOps.SlabSurface;
 
 class GCodeBuilder : IGCodeBuilder
 {
@@ -44,7 +44,7 @@ class GCodeBuilder : IGCodeBuilder
         {
             double x = 0.0, y = 0.0;
             Append(CNCMachine.RapidToXYZ(x, y, parameters.StartingThickness + 1.0));
-            Append(CNCMachine.FeedToZ(z));
+            Append(CNCMachine.FeedToZ(z, 120.0));
 
             while (x < parameters.PartWidth)
             {

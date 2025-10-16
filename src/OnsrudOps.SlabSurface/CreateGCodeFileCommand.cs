@@ -1,5 +1,4 @@
-﻿
-namespace OnsrudOps.ReCut;
+﻿namespace OnsrudOps.SlabSurface;
 
 public class CreateGCodeFileCommand
 {

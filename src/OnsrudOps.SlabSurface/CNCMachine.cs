@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OnsrudOps.ReCut;
+namespace OnsrudOps.SlabSurface;
 
 /// <summary>
 /// Abstract class providing the base functionality for all CNC machines
@@ -92,7 +92,7 @@ abstract class CNCMachine
 
     public virtual string FeedToY(double y) => $"G01 Y{y} F{SelectedTool.FeedRate}";
 
-    public virtual string FeedToZ(double z) => $"G01 Z{z} F{SelectedTool.FeedRate}";
+    public virtual string FeedToZ(double z, double feed = 320.0) => $"G01 Z{z} F{SelectedTool.FeedRate}";
 
     public virtual string LiftHead() => "G00 Z8.0";
 

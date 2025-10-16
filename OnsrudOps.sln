@@ -21,6 +21,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 		readme.md = readme.md
 	EndProjectSection
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "OnsrudOps.SlabSurface", "src\OnsrudOps.SlabSurface\OnsrudOps.SlabSurface.csproj", "{A61DA73D-615A-4A1C-BE3A-679AC7B4F9D1}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -61,6 +63,14 @@ Global
 		{6BDDB604-1E00-49F4-AA0A-EDB24AF047BF}.Release|Any CPU.Build.0 = Release|Any CPU
 		{6BDDB604-1E00-49F4-AA0A-EDB24AF047BF}.Release|x64.ActiveCfg = Release|Any CPU
 		{6BDDB604-1E00-49F4-AA0A-EDB24AF047BF}.Release|x64.Build.0 = Release|Any CPU
+		{A61DA73D-615A-4A1C-BE3A-679AC7B4F9D1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A61DA73D-615A-4A1C-BE3A-679AC7B4F9D1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A61DA73D-615A-4A1C-BE3A-679AC7B4F9D1}.Debug|x64.ActiveCfg = Debug|Any CPU
+		{A61DA73D-615A-4A1C-BE3A-679AC7B4F9D1}.Debug|x64.Build.0 = Debug|Any CPU
+		{A61DA73D-615A-4A1C-BE3A-679AC7B4F9D1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A61DA73D-615A-4A1C-BE3A-679AC7B4F9D1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A61DA73D-615A-4A1C-BE3A-679AC7B4F9D1}.Release|x64.ActiveCfg = Release|Any CPU
+		{A61DA73D-615A-4A1C-BE3A-679AC7B4F9D1}.Release|x64.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
@@ -70,6 +80,7 @@ Global
 		{631307AD-2673-4706-B488-8E6C09B64AB3} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{72052DA4-F52E-4CA1-A4BC-82C04F49D312} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 		{6BDDB604-1E00-49F4-AA0A-EDB24AF047BF} = {1DAC0CB9-E5C6-4060-8ECF-4DABEF294CCB}
+		{A61DA73D-615A-4A1C-BE3A-679AC7B4F9D1} = {02EA681E-C7D8-13C7-8484-4AC65E1B71E8}
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
 		SolutionGuid = {E77165A0-6CFF-4E31-BB2A-C1892CA152C0}

@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OnsrudOps.ReCut;
+namespace OnsrudOps.SlabSurface;
 
 /// <summary>
 /// Definition for a CNC router tool

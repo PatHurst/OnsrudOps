@@ -22,10 +22,10 @@
     </Window.CommandBindings>
 
     <Window.Resources>
-        <Run x:Key="UndoGlyph" Text="&#xE7A7;" FontFamily="{StaticResource SymbolThemeFontFamily}" Foreground="{StaticResource Accent1Brush}"/>
+        <Run x:Key="UndoGlyph" Text="&#xE7A7;" FontFamily="{StaticResource SymbolThemeFontFamily}" Foreground="{StaticResource Accent1Brush}" x:Shared="false"/>
         <Run x:Key="RedoGlyph" Text="&#xE7A6;" FontFamily="{StaticResource SymbolThemeFontFamily}" Foreground="{StaticResource Accent1Brush}"/>
         <Run x:Key="ScrollToEndGlyph" Text="&#xE70D;" FontFamily="{StaticResource SymbolThemeFontFamily}" Foreground="{StaticResource Accent1Brush}"/>
-        <Run x:Key="ScrollToTopGlyph" Text="&#xE70E;" FontFamily="{StaticResource SymbolThemeFontFamily}" Foreground="{StaticResource Accent1Brush}"/>
+        <Run x:Key="ScrollToTopGlyph" Text="&#xE70E;" FontFamily="{StaticResource SymbolThemeFontFamily}" Foreground="{StaticResource Accent1Brush}" x:Shared="false"/>
         <Run x:Key="SendGlyph" Text="&#xE725;" FontFamily="{StaticResource SymbolThemeFontFamily}" Foreground="{StaticResource Accent1Brush}"/>
         <Run x:Key="OpenGlyph" Text="&#xF12B;" FontFamily="{StaticResource SymbolThemeFontFamily}" Foreground="{StaticResource Accent1Brush}"/>
         <Run x:Key="SaveGlyph" Text="&#xE74E;" FontFamily="{StaticResource SymbolThemeFontFamily}" Foreground="{StaticResource Accent1Brush}"/>
@@ -80,7 +80,8 @@
                                 ToolTip="Open G Code Files">
                             <Button.Content>
                                 <TextBlock>
-                                    <Run Text="&#xF12B;" FontFamily="{StaticResource SymbolThemeFontFamily}" Foreground="{StaticResource Accent1Brush}"/>
+                                    <!--Run Text="&#xF12B;" FontFamily="{StaticResource SymbolThemeFontFamily}" Foreground="{StaticResource Accent1Brush}"/-->
+                                    <StaticResource ResourceKey="SendGlyph"/>
                                     <Run> Open Files</Run>
                                 </TextBlock>
                             </Button.Content>
@@ -90,7 +91,8 @@
                                 Click="SendFiles_Btn_Click">
                             <Button.Content>
                                 <TextBlock>
-                                    <Run Text="&#xE725;" FontFamily="{StaticResource SymbolThemeFontFamily}" Foreground="{StaticResource Accent1Brush}"/>
+                                    <!--Run Text="&#xE725;" FontFamily="{StaticResource SymbolThemeFontFamily}" Foreground="{StaticResource Accent1Brush}"/-->
+                                    <StaticResource ResourceKey="SendGlyph"/>
                                     <Run> Send All Files</Run>
                                 </TextBlock>
                             </Button.Content>
@@ -100,7 +102,8 @@
                                 Click="SendSingleFileButton_Click">
                             <Button.Content>
                                 <TextBlock>
-                                    <Run Text="&#xE725;" FontFamily="{StaticResource SymbolThemeFontFamily}" Foreground="{StaticResource Accent1Brush}"/>
+                                    <!--Run Text="&#xE725;" FontFamily="{StaticResource SymbolThemeFontFamily}" Foreground="{StaticResource Accent1Brush}"/-->
+                                    <StaticResource ResourceKey="SendGlyph"/>
                                     <Run> Send Current File</Run>
                                 </TextBlock>
                             </Button.Content>

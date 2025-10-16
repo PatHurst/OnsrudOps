@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace OnsrudOps.ReCut;
+namespace OnsrudOps.SlabSurface;
 
 /// <summary>
 /// Defines the type or brand of CNC machine.

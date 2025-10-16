@@ -1,4 +1,4 @@
-﻿namespace OnsrudOps.ReCut;
+﻿namespace OnsrudOps.SlabSurface;
 
 /// <summary>
 /// Holds the parameters necessary to construct a Surfacing Program.
