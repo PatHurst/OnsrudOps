@@ -1,0 +1,33 @@
+<SyntaxDefinition name="GCode"
+				  
+        xmlns="http://icsharpcode.net/sharpdevelop/syntaxdefinition/2008">
+	
+    <Color name="Comment" foreground="Green" />
+    <Color name="Command" foreground="Blue" />
+
+    <!-- This is the main ruleset. -->
+    <RuleSet>
+		
+        <Span color="Comment" begin="/" />
+		<Span color="Comment" begin=";" />
+        <Span color="Comment" multiline="true" begin="/\*" end="\*/" />
+
+		<!--Span color="Command" begin="G" end=" " />
+		<Span color="Command" begin="M" end=" " />
+		<Span color="Speed" begin="S" end=" " /-->
+
+		<!--G and M Code Commands-->
+		<Rule foreground="Blue">
+			[GgMm][0-9]+
+		</Rule>
+		
+		<!--Z and RPM-->
+		<Rule foreground="Red">
+			[SsFfZz].+\b
+		</Rule>
+		
+		
+
+    </RuleSet>
+
+</SyntaxDefinition>
