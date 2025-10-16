@@ -17,13 +17,13 @@
 		<Span color="Speed" begin="S" end=" " /-->
 
 		<!--G and M Code Commands-->
-		<Rule foreground="Blue">
-			[GgMm][0-9]+
+		<Rule foreground="#2389E8">
+			\b[GgMm][0-9]+\b
 		</Rule>
 		
 		<!--Z and RPM-->
 		<Rule foreground="Red">
-			[SsFfZz].+\b
+			\b[SsFfZz]\d+\.?(\.?\d+)?
 		</Rule>
 		
 		
