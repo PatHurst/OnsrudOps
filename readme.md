@@ -10,3 +10,6 @@ This software is in NO way warranted; Use at your own Risk!
 Reliable communication through Serial port
 Reliable Editing and Saving of G Code Files
 Basic creation of slab surfacing programs
+
+### Release Version 1.0.1
+Bug Fix Release
