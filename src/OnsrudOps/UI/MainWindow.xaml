@@ -19,17 +19,19 @@
     <Window.CommandBindings>
         <CommandBinding Command="ApplicationCommands.Open" Executed="OpenCommand_Executed"/>
         <CommandBinding Command="ApplicationCommands.Save" Executed="SaveCommand_Executed"/>
+        <CommandBinding Command="ApplicationCommands.New" Executed="NewCommand_Executed"/>
     </Window.CommandBindings>
 
     <Window.Resources>
         <Run x:Key="UndoGlyph" Text="&#xE7A7;" FontFamily="{StaticResource SymbolThemeFontFamily}" Foreground="{StaticResource Accent1Brush}" x:Shared="false"/>
-        <Run x:Key="RedoGlyph" Text="&#xE7A6;" FontFamily="{StaticResource SymbolThemeFontFamily}" Foreground="{StaticResource Accent1Brush}"/>
-        <Run x:Key="ScrollToEndGlyph" Text="&#xE70D;" FontFamily="{StaticResource SymbolThemeFontFamily}" Foreground="{StaticResource Accent1Brush}"/>
+        <Run x:Key="RedoGlyph" Text="&#xE7A6;" FontFamily="{StaticResource SymbolThemeFontFamily}" Foreground="{StaticResource Accent1Brush}" x:Shared="false"/>
+        <Run x:Key="ScrollToEndGlyph" Text="&#xE70D;" FontFamily="{StaticResource SymbolThemeFontFamily}" Foreground="{StaticResource Accent1Brush}" x:Shared="false"/>
         <Run x:Key="ScrollToTopGlyph" Text="&#xE70E;" FontFamily="{StaticResource SymbolThemeFontFamily}" Foreground="{StaticResource Accent1Brush}" x:Shared="false"/>
-        <Run x:Key="SendGlyph" Text="&#xE725;" FontFamily="{StaticResource SymbolThemeFontFamily}" Foreground="{StaticResource Accent1Brush}"/>
-        <Run x:Key="OpenGlyph" Text="&#xF12B;" FontFamily="{StaticResource SymbolThemeFontFamily}" Foreground="{StaticResource Accent1Brush}"/>
-        <Run x:Key="SaveGlyph" Text="&#xE74E;" FontFamily="{StaticResource SymbolThemeFontFamily}" Foreground="{StaticResource Accent1Brush}"/>
-        <Run x:Key="ExitGlyph" Text="&#xE711;" FontFamily="{StaticResource SymbolThemeFontFamily}" Foreground="{StaticResource Accent1Brush}"/>
+        <Run x:Key="SendGlyph" Text="&#xE725;" FontFamily="{StaticResource SymbolThemeFontFamily}" Foreground="{StaticResource Accent1Brush}" x:Shared="false"/>
+        <Run x:Key="OpenGlyph" Text="&#xF12B;" FontFamily="{StaticResource SymbolThemeFontFamily}" Foreground="{StaticResource Accent1Brush}" x:Shared="false"/>
+        <Run x:Key="SaveGlyph" Text="&#xE74E;" FontFamily="{StaticResource SymbolThemeFontFamily}" Foreground="{StaticResource Accent1Brush}" x:Shared="false"/>
+        <Run x:Key="NewGlyph" Text="&#xE710;" FontFamily="{StaticResource SymbolThemeFontFamily}" Foreground="{StaticResource Accent1Brush}" x:Shared="false"/>
+        <Run x:Key="ExitGlyph" Text="&#xE711;" FontFamily="{StaticResource SymbolThemeFontFamily}" Foreground="Red" x:Shared="false"/>
     </Window.Resources>
     
     <Grid>
@@ -44,10 +46,12 @@
               HorizontalContentAlignment="Stretch"
               Cursor="Hand">
             <MenuItem Header="File">
+                <MenuItem Command="ApplicationCommands.New" Icon="{StaticResource NewGlyph}" Header="New File"/>
+                <Separator/>
                 <MenuItem Command="ApplicationCommands.Open" Icon="{StaticResource OpenGlyph}" Header="Open Files"/>
                 <MenuItem Command="ApplicationCommands.Save" Icon="{StaticResource SaveGlyph}" Header="Save Files"/>
                 <Separator/>
-                <MenuItem Header="Exit App" Click="ExitMenuItem_Click"/>
+                <MenuItem Icon="{StaticResource ExitGlyph}" Header="Exit App" Click="ExitMenuItem_Click"/>
             </MenuItem>
             <MenuItem Header="Settings">
                 <MenuItem Header="Application Settings" Click="SettingsMenu_Click"/>
@@ -80,9 +84,8 @@
                                 ToolTip="Open G Code Files">
                             <Button.Content>
                                 <TextBlock>
-                                    <!--Run Text="&#xF12B;" FontFamily="{StaticResource SymbolThemeFontFamily}" Foreground="{StaticResource Accent1Brush}"/-->
-                                    <StaticResource ResourceKey="SendGlyph"/>
-                                    <Run> Open Files</Run>
+                                    <StaticResource ResourceKey="OpenGlyph"/>
+                                    <Run>  Open Files</Run>
                                 </TextBlock>
                             </Button.Content>
                         </Button>
@@ -91,9 +94,8 @@
                                 Click="SendFiles_Btn_Click">
                             <Button.Content>
                                 <TextBlock>
-                                    <!--Run Text="&#xE725;" FontFamily="{StaticResource SymbolThemeFontFamily}" Foreground="{StaticResource Accent1Brush}"/-->
                                     <StaticResource ResourceKey="SendGlyph"/>
-                                    <Run> Send All Files</Run>
+                                    <Run>  Send All Files</Run>
                                 </TextBlock>
                             </Button.Content>
                         </Button>
@@ -102,9 +104,8 @@
                                 Click="SendSingleFileButton_Click">
                             <Button.Content>
                                 <TextBlock>
-                                    <!--Run Text="&#xE725;" FontFamily="{StaticResource SymbolThemeFontFamily}" Foreground="{StaticResource Accent1Brush}"/-->
                                     <StaticResource ResourceKey="SendGlyph"/>
-                                    <Run> Send Current File</Run>
+                                    <Run>  Send Current File</Run>
                                 </TextBlock>
                             </Button.Content>
                         </Button>
@@ -118,14 +119,11 @@
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Stretch">
-                                    <TextBlock Text="&#xE711;"
-                                               FontFamily="{StaticResource SymbolThemeFontFamily}"
-                                               Foreground="Red"
-                                               MouseLeftButtonUp="Label_MouseLeftButtonUp" 
-                                               Cursor="Hand"
-                                               HorizontalAlignment="Right"
-                                               FontSize="16"
-                                               Width="16">
+                                    <TextBlock MouseLeftButtonUp="Label_MouseLeftButtonUp" 
+                                                Cursor="Hand"
+                                                HorizontalAlignment="Right"
+                                                FontSize="16"
+                                                Width="16">
                                         <StaticResource ResourceKey="ExitGlyph"/>
                                     </TextBlock>
                                     <Label Content="{Binding FileName}" Margin="24,0,0,0"/>
@@ -241,7 +239,8 @@
         <StatusBar HorizontalAlignment="Left"
                    HorizontalContentAlignment="Stretch"
                    VerticalAlignment="Stretch"
-                   Grid.Row="2">
+                   Grid.Row="2"
+                   FontSize="11">
             <StatusBarItem Name="SerialStatusLabel"
                            Content="Serial Port Disconnected..."
                            Foreground="{StaticResource ErrorBrush}"

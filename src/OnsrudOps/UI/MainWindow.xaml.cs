@@ -257,4 +257,10 @@ public partial class MainWindow : Window
         if (textEditor.CanRedo)
             textEditor.Redo();
     }
+
+	private void NewCommand_Executed(object sender, System.Windows.Input.ExecutedRoutedEventArgs e)
+	{
+        ViewModel.CodeFiles.Add(new GCodeFile(GCodeFile.Template));
+        CodeFile_LstBx.SelectedIndex = ViewModel.CodeFiles.Count - 1;
+	}
 }

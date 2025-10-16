@@ -109,11 +109,33 @@ namespace OnsrudOps.src
         {
             get => _modified;
         }
-
+        
         /// <summary>
-        /// Save this file back to the same directory
+        /// A template for a new G Code file.
         /// </summary>
-        public async Task<bool> SaveAsync()
+        public static string Template = """
+        %
+        //=================== INFO ===================//
+        // JOB NAME: New Program
+        // START PROGRAM
+        PNew_Program
+        G90 G70 G40 G49 G56
+        //------------TOOL CHANGE------------
+        M06 T
+        M03 S
+
+        ...
+
+
+        M20 A1+
+        M02
+        %
+        """;
+
+		/// <summary>
+		/// Save this file back to the same directory
+		/// </summary>
+		public async Task<bool> SaveAsync()
         {
             try
             {
