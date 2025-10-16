@@ -7,11 +7,12 @@
     <OutputType>WinExe</OutputType>
 	<PublishSingleFile>true</PublishSingleFile>
     <UseWPF>True</UseWPF>
-    <Version>1.0.0</Version>
+    <Version>1.0.1</Version>
     <Authors>Patrick Hurst</Authors>
     <Company>InnovaTech</Company>
     <ApplicationIcon>icon.ico</ApplicationIcon>
     <Platforms>AnyCPU;win-x64</Platforms>
+	<RuntimeIdentifiers>win-x64</RuntimeIdentifiers>
   </PropertyGroup>
 
   <ItemGroup>
