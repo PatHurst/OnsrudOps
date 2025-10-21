@@ -33,7 +33,9 @@ public partial class SettingsWindow : Window
         256000
     ];
 
-    readonly RadioButton[] dataBitsRadioButtons;
+    private readonly string[] _comPorts = [.. SerialWrapper.AvailableCOMPorts, "No Available Ports"];
+
+	readonly RadioButton[] dataBitsRadioButtons;
     //readonly RadioButton[] stopBitsRadioButtons;
     //readonly RadioButton[] parityRadioButtons;
 
@@ -44,7 +46,8 @@ public partial class SettingsWindow : Window
     public SettingsWindow(MainWindow parent)
     {
         InitializeComponent();
-        InitializeFieldsFromRegistry();
+        PortNameComboBox.ItemsSource = _comPorts;
+		InitializeFieldsFromRegistry();
         dataBitsRadioButtons = [DataBits7RadioButton, DataBits8RadioButton];
         //stopBitsRadioButtons = [StopBitsNoneRadioButton, StopBitsOneRadioButton, StopBitsTwoRadioButton];
         //parityRadioButtons = [ParityNoneRadioButton, ParityOddRadioButton, ParityEvenRadioButton];
@@ -98,7 +101,7 @@ public partial class SettingsWindow : Window
         EdytorNCPath_Lbl.Content = Settings.PathToEdytorNC;
         SyntaxPathLabel.Content = Settings.PathToSyntaxHighlightingFile;
 
-        this.PortNameTextBox.Text = Settings.SerialConnectionConfiguration.PortName;
+        this.PortNameComboBox.SelectedIndex = getIndexOfs(Settings.SerialConnectionConfiguration.PortName);
         this.BaudRateComboBox.SelectedIndex = getIndexOf(Settings.SerialConnectionConfiguration.BaudRate);
 
         switch (Settings.SerialConnectionConfiguration.DataBits)
@@ -146,7 +149,17 @@ public partial class SettingsWindow : Window
             }
             // if we made it here the baud rate read from registry is not valid. 
             // use the first one in the array.
-            return baudRates.First();
+            return 0;
+        }
+
+        int getIndexOfs(string port)
+        {
+            for (int i = 0; i < _comPorts.Length; i++)
+            {
+                if (_comPorts[i] == port)
+                    return i;
+            }
+            return 0;
         }
 
     }
@@ -192,12 +205,12 @@ public partial class SettingsWindow : Window
             parity = Parity.None;
 
         int dataBits = int.Parse((string)dataBitsRadioButtons.Where(b => b.IsChecked == true).First().Tag);
-        return new(PortNameTextBox.Text, baudRates[BaudRateComboBox.SelectedIndex], dataBits, stopBits, parity);
+        return new((string)PortNameComboBox.SelectedItem, baudRates[BaudRateComboBox.SelectedIndex], dataBits, stopBits, parity);
     }
 
     private void BaudRateComboBox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e) => _settingsModified = true;
 
-    private void PortNameTextBox_TextChanged(object sender, System.Windows.Controls.TextChangedEventArgs e) => _settingsModified = true;
+    private void PortNameComboBox_SelectionChanged(object sender, System.Windows.Controls.SelectionChangedEventArgs e) => _settingsModified = true;
 
     private void DataBitsRadioButton_Checked(object sender, RoutedEventArgs e) => _settingsModified = true;
 

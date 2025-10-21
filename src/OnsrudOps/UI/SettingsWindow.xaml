@@ -48,9 +48,9 @@
                     <StackPanel Orientation="Vertical">
                         <GroupBox Header="Port Name"
                                   Margin="5,5,5,5">
-                            <TextBox x:Name="PortNameTextBox"
+                            <ComboBox x:Name="PortNameComboBox"
                                      Width="120"
-                                     TextChanged="PortNameTextBox_TextChanged"/>
+                                     SelectionChanged="PortNameComboBox_SelectionChanged"/>
                         </GroupBox>
                         <GroupBox Header="Baud Rate"
                                   Margin="5,5,5,5">

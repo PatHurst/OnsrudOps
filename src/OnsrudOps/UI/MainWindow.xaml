@@ -183,7 +183,7 @@
                                      Grid.Row="2" 
                                      Grid.ColumnSpan="3"
                                      Height="250">
-                            <FlowDocument Name="SerialPortDisplay"/>
+                            <FlowDocument Name="SerialPortDisplay" FontSize="12"/>
                         </RichTextBox>
                     </Expander>
                 </Grid>
