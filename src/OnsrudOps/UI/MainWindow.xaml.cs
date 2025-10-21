@@ -1,15 +1,15 @@
-﻿using ICSharpCode.AvalonEdit.Highlighting;
-using ICSharpCode.AvalonEdit.Highlighting.Xshd;
-using OnsrudOps.Serial;
-using OnsrudOps.src;
-using OnsrudOps.Command;
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.IO;
 using System.Windows;
 using System.Windows.Documents;
 using System.Windows.Media;
 using System.Xml;
+using ICSharpCode.AvalonEdit.Highlighting;
+using ICSharpCode.AvalonEdit.Highlighting.Xshd;
+using OnsrudOps.Command;
+using OnsrudOps.Serial;
 using OnsrudOps.SlabSurface;
+using OnsrudOps.src;
 
 namespace OnsrudOps.UI;
 
@@ -31,6 +31,7 @@ public partial class MainWindow : Window
 
         App.SerialPort.ConnectionChanged += OnSerialConnectionChanged;
         App.SerialPort.SerialMessage += OnSerialMessage;
+        App.SerialPort.SerialError += OnSerialError;
 
         App.SerialPort.FileSent += OnSerialQueue_FileSent;
         App.SerialPort.Progress += OnSerialQueue_ProgressChanged;
@@ -135,8 +136,21 @@ public partial class MainWindow : Window
             Run run = new(message.Message);
             Paragraph p = new(run)
             {
-                Foreground = message.MessageType == SerialMessageType.Error ? Application.Current.Resources["ErrorBrush"] as Brush :
-                    Application.Current.Resources["SuccessBrush"] as Brush
+                Foreground = Application.Current.Resources["SuccessBrush"] as Brush
+            };
+            SerialPortDisplay.Blocks.Add(p);
+            SerialPort_TxtBlck.ScrollToEnd();
+        });
+    }
+
+    private void OnSerialError(object? sender, SerialError serialError)
+    {
+        Dispatcher.Invoke(() =>
+        {
+            Run run = new(serialError.Message + " " + serialError.Exception?.Message);
+            Paragraph p = new(run)
+            {
+                Foreground = Application.Current.Resources["ErrorBrush"] as Brush
             };
             SerialPortDisplay.Blocks.Add(p);
             SerialPort_TxtBlck.ScrollToEnd();
@@ -221,7 +235,7 @@ public partial class MainWindow : Window
 
     private static IHighlightingDefinition LoadSyntaxHighlightingDefinition()
     {
-        IHighlightingDefinition definition = null;
+        IHighlightingDefinition definition = null!;
         try
         {
             // load the file saved in settings

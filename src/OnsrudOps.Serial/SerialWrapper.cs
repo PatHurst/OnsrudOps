@@ -18,6 +18,11 @@ public sealed class SerialWrapper
     private SerialState _state;
 
     /// <summary>
+    /// A list of the available ports on this machine.
+    /// </summary>
+    private static string[] _availablePorts = SerialPort.GetPortNames();
+
+    /// <summary>
     /// The locker object for single thread access to the serial port.
     /// </summary>
     private readonly Lock _serialLock = new();
@@ -28,14 +33,24 @@ public sealed class SerialWrapper
     public bool IsConnected => _serialPort.IsOpen;
 
     /// <summary>
+    /// Get a list of the available COM ports on this machine.
+    /// </summary>
+    public static string[] AvailableCOMPorts => _availablePorts;
+
+    /// <summary>
     /// Get the current connection configuration.
     /// </summary>
     public SerialConnectionConfiguration Configuration { get; private set; }
 
     /// <summary>
-    /// Invoked on serial exceptions and messages
+    /// Invoked on serial exceptions messages.
     /// </summary>
     public event EventHandler<SerialMessage>? SerialMessage;
+
+    /// <summary>
+    /// Invoked on handled serial exceptions.
+    /// </summary>
+    public event EventHandler<SerialError>? SerialError;
 
     /// <summary>
     /// Invoked when the connection changes, connected or disconnected.
@@ -99,7 +114,7 @@ public sealed class SerialWrapper
         if (_serialPort.IsOpen)
             return true;
 
-        SerialMessage?.Invoke(this, new SerialMessage(SerialMessageType.Information, "Trying to Connect with settings: " + Configuration));
+        SerialMessage?.Invoke(this, new SerialMessage("Trying to Connect with settings: " + Configuration));
         return await Task.Run(() =>
         {
             try
@@ -107,31 +122,12 @@ public sealed class SerialWrapper
                 _serialPort.Open();
                 _state = SerialState.Open;
                 ConnectionChanged?.Invoke(this, (true, Configuration));
-                SerialMessage?.Invoke(this, new SerialMessage(SerialMessageType.Information,
-                    $"Connected Successfully! {this.Configuration}"));
+                SerialMessage?.Invoke(this, new SerialMessage($"Connected Successfully! {this.Configuration}"));
                 return true;
-            }
-            catch (UnauthorizedAccessException ex)
-            {
-                SerialMessage?.Invoke(this, new SerialMessage(SerialMessageType.Error, "Unauthorized Access Exception: " + ex.Message));
-                ConnectionChanged?.Invoke(this, (false, Configuration));
-                return false;
-            }
-            catch (InvalidOperationException ex)
-            {
-                SerialMessage?.Invoke(this, new SerialMessage(SerialMessageType.Error, "Invalid Operation Exception: " + ex.Message));
-                ConnectionChanged?.Invoke(this, (false, Configuration));
-                return false;
-            }
-            catch (IOException ex)
-            {
-                SerialMessage?.Invoke(this, new SerialMessage(SerialMessageType.Error, "IO Exception: " + ex.Message));
-                ConnectionChanged?.Invoke(this, (false, Configuration));
-                return false;
             }
             catch (Exception ex)
             {
-                SerialMessage?.Invoke(this, new SerialMessage(SerialMessageType.Error, ex.Message));
+                SerialError?.Invoke(this, new SerialError(ex));
                 ConnectionChanged?.Invoke(this, (false, Configuration));
                 return false;
             }
@@ -158,7 +154,7 @@ public sealed class SerialWrapper
     {
         if (_state == SerialState.Writing)
         {
-            SerialMessage?.Invoke(this, new SerialMessage(SerialMessageType.Error, "Serial port could not disconnect. Writing in progress."));
+            SerialError?.Invoke(this, new SerialError(message: "Serial port could not disconnect. Writing in progress."));
             return;
         }
         if (_serialPort?.IsOpen == true)
@@ -184,7 +180,7 @@ public sealed class SerialWrapper
         // if the port was unable to be opened, bail out with an error.
         if (!ConnectAsync().Result)
         {
-            SerialMessage?.Invoke(this, new SerialMessage(SerialMessageType.Error, "Port is not opened! File could not be sent."));
+            SerialError?.Invoke(this, new SerialError(message: "Port is not opened! File could not be sent."));
             return false;
         }
               
@@ -195,19 +191,15 @@ public sealed class SerialWrapper
                 // ensure single thread access to the serial port.
                 lock (_serialLock)
                 {
-                    SerialMessage?.Invoke(this, new SerialMessage(SerialMessageType.Information, $"Serial lock entered by thread: {Environment.CurrentManagedThreadId}"));
+                    SerialMessage?.Invoke(this, new SerialMessage($"Serial lock entered by thread: {Environment.CurrentManagedThreadId}"));
                     _state = SerialState.Writing;
                     _serialPort.Write(text);
                 }
                 succeeded = true;
             }
-            catch (InvalidOperationException ex)
-            {
-                SerialMessage?.Invoke(this, new SerialMessage(SerialMessageType.Error, "Invalid Operation! " + ex.Message));
-            }
             catch (Exception ex)
             {
-                SerialMessage?.Invoke(this, new SerialMessage(SerialMessageType.Error, ex.Message));
+                SerialError?.Invoke(this, new SerialError(ex));
             }
             finally
             {
@@ -284,8 +276,8 @@ public sealed class SerialWrapper
         }
         catch (Exception ex)
         {
-            SerialMessage?.Invoke(this, new SerialMessage(SerialMessageType.Error, "Error Creating Serial Port: " + ex.Message));
-            SerialMessage?.Invoke(this, new SerialMessage(SerialMessageType.Error, "Port Reconnecting with Default Settings"));
+            SerialError?.Invoke(this, new SerialError(ex, "Error Creating Serial Port"));
+            SerialError?.Invoke(this, new SerialError(ex, "Port Reconnecting with Default Settings"));
             port = Create(SerialConnectionConfiguration.Default);
         }
         return port;
